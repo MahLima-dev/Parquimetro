@@ -14,10 +14,7 @@ class Parquimetro {
         else if(this.valor  >= 1.75 && this.valor< 3){
             tempo = 60
         }
-        else if(this.valor === 3){
-            tempo = 120
-        }
-        else if(this.valor > 3){
+        else if(this.valor >= 3){
             tempo = 120
         }
         else if(this.valor < 1){
@@ -51,4 +48,5 @@ function calcular(){
     const p = new Parquimetro(valor)
     p.taxa()
     p.troco()
+
 }
