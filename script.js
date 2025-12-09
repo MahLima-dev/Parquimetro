@@ -1,52 +1,55 @@
-class Parquimetro {
-    constructor(valor) {
-        this.valor = Number(valor)
+class Parquimetro{
+    constructor(){
+    this.valor = 0
     }
-    taxa(){
-         let tempo = 0
-        if(isNaN(this.valor)){
-            document.getElementById("valorTaxa").textContent = "Valor inválido, insira um valor válido";
-            return
+    atualizarValor(){
+        this.valor = parseInt(document.getElementById("valor").value)
+    }
+    duracao(){
+        if (isNaN(this.valor)) {
+            document.getElementById("duracao").textContent = "Valor inválido"
+            return;
         }
-        else if(this.valor >= 1 && this.valor< 1.75){
+        let tempo = 0
+        if (this.valor >= 1 && this.valor < 1.75) {
             tempo = 30
         }
-        else if(this.valor  >= 1.75 && this.valor< 3){
+        else if (this.valor >= 1.75 && this.valor < 3) {
             tempo = 60
         }
-        else if(this.valor >= 3){
+        else if (this.valor >= 3) {
             tempo = 120
         }
-        else if(this.valor < 1){
-             document.getElementById("valorTaxa").textContent = "Valor Insuficiente"
-             return
+        else{
+        document.getElementById("duracao").textContent = "Valor insuficiente"
+        return;
         }
-         console.log("Valor recebido em taxa():", this.valor)
-
-        document.getElementById("valorTaxa").textContent = `O valor foi de R$ ${this.valor} e o tempo ${tempo} minutos`;
+        document.getElementById("duracao").textContent = `O valor foi de R$ ${this.valor} e a duração de ${tempo} minutos`
+        
     }
     troco(){
-        let valorTroco = 0
-        if(this.valor === 1 || this.valor === 1.75 || this.valor === 3 ){
-            document.getElementById("valorTroco").textContent = "Sem troco"
-            return
+        let valorDisponivel = [1, 1.75, 3]
+        if(valorDisponivel.includes(this.valor)){
+        document.getElementById("troco").textContent = "Sem troco"
         }
+        let troco = 0
         if(this.valor > 3){
-            valorTroco = this.valor - 3
+            troco = this.valor - 3
         }
-        else if(this.valor > 1.75){
-             valorTroco = this.valor - 1.75
+         if(this.valor > 1.75 && this.valor < 3){
+            troco = this.valor - 1.75
         }
-        else if(this.valor > 1){
-            (valorTroco = this.valor - 1)
+         if(this.valor > 1 && this.valor < 1.75){
+            troco = this.valor - 1
         }
-     document.getElementById("valorTroco").textContent = `O troco é de R$ ${valorTroco.toFixed(2)}`;
+        document.getElementById("troco").textContent = `E o troco é de ${troco.toFixed(2)} reais`
     }
 }
-function calcular(){
-    const valor = parseFloat(document.getElementById("valor").value);
-    const p = new Parquimetro(valor)
-    p.taxa()
-    p.troco()
 
+
+function calcular(){
+    const p = new Parquimetro()
+    p.atualizarValor()
+    p.duracao()
+    p.troco()
 }
